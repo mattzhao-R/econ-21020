@@ -42,7 +42,7 @@ ggplot() +
 
 #P(1{U <= p} = 1) = P(U <= p)
 
-#=(p???0)/(1???0) (from cdf of a uniform distribution)
+#=(p-0)/(1-0) (from cdf of a uniform distribution)
 #= p,
 
 #P(1{U <= p} = 1) = P(X = 1) and since 
