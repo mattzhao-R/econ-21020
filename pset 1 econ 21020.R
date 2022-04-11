@@ -34,19 +34,19 @@ ggplot() +
 
 # Problem 9
 # Part (a)
-#Let X ??? Bernoulli(p) and U ??? U(0, 1). Show that
+#Let X ~ Bernoulli(p) and U ~ U(0, 1). Show that
 
-#P(1{U ??? p} = 1) = p (13)
+#P(1{U <= p} = 1) = p (13)
 
-#and conclude that 1{U ??? p} and X are identically distributed.
+#and conclude that 1{U <= p} and X are identically distributed.
 
-#P(1{U ??? p} = 1) = P(U ??? p)
+#P(1{U <= p} = 1) = P(U <= p)
 
 #=(p???0)/(1???0) (from cdf of a uniform distribution)
 #= p,
 
-#P(1{U ??? p} = 1) = P(X = 1) and since 
-#supp 1{U ??? p} = supp X = {0, 1}, U and X are 
+#P(1{U <= p} = 1) = P(X = 1) and since 
+#supp 1{U <= p} = supp X = {0, 1}, U and X are 
 #identically distributed.
 
 # Part (b)
