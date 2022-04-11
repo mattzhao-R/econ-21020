@@ -1,5 +1,5 @@
 ---
-title: "pset 1 econ 21020"
+title: "PSET 1 econ 21020"
 author: "Matthew Zhao"
 output: pdf_document
 ---
@@ -13,7 +13,7 @@ This RMarkdown file is meant to be a more readable equivalent to the R file by t
 
 
 Here we open the ggplot2 library and set the seed for reproducibility.
-```{r, message=FALSE}
+```{r, warning=FALSE}
 library(ggplot2)
 set.seed(1000)
 ```
@@ -36,6 +36,7 @@ ggplot() +
   theme_classic(base_size = 20) + 
   theme(text = element_text(size = 20,  family="serif"))
 ```
+
 #### Part (b)
 Generate a vector of n draws from a uniform(-1, 1) rv
 ```{r}
@@ -55,6 +56,15 @@ ggplot() +
 
 ## Problem 9
 #### Part (a)
+Let $\text{X} \sim \text{Bernoulli}(p)$ and $\text{U} \sim U(0, 1)$. Show that $P(1\{U \le p\} = 1) = p$ and conclude that $1\{U \le p\}$ and X are identically distributed.
+
+
+$\displaystyle P(1\{U \le p\} = 1) = P(U\le p) = \frac{p-1}{1-0} = p$ (using the cdf of a uniform distribution)
+
+
+$P(1\{U \le p\} = 1) = P(X = 1)$ and since $supp 1\{U \le p\} = supp X = \{0, 1\}$, U and X are identically distributed.
+
+
 
 #### Part (b)
 Define a custom function that returns draws from a Bernoulli rv
