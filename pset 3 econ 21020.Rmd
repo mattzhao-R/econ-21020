@@ -1,0 +1,252 @@
+---
+title: "PSET 3 ECON 21020"
+author: "Matthew Zhao"
+output: pdf_document
+---
+
+Link to the [GitHub Repository](https://github.com/mattzhao-R/econ-21020)
+
+# Problem 1
+
+## a)
+
+True. 
+$$
+\displaystyle \sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X)) = \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}} \cdot \hat{\sigma}_{x}
+$$
+
+
+Let $A_n = \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}}$ and $B_n = \hat{\sigma}_{x}$. By CLT, $A_n$ converges in distribution to $N(0,1)$, and by WLLN, $\hat{\sigma}_{x}$ converges in probability to $\sigma_x$. Therefore, by Slutsky, $\displaystyle \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}} \cdot \hat{\sigma}_{x}$ converges in distribution to $\sigma_x N(0,1) = \sqrt{Var(X)}N(0,1) = N(0,Var(X))$. 
+
+
+## b) 
+
+False. Suppose U is independent of W but U is not independent of X and U takes values 1 and -1 w.p. 0.5. As a result, $E(U|W) = E(U) = 0$ but $E(U|W,X) = E(U|X)$ which does not necessarily equal zero. 
+
+## c)
+
+True. <br/>
+$\beta = \displaystyle \frac{Cov(X,Y)}{Var(X)}$<br/>
+$Cov(X,Y) = E(XY) - E(X)E(Y)$<br/>
+$E(Y) = E(E(Y|X)) = E(X^2) = \frac{1}{3}$<br/>
+$E(X) = \frac{1}{2}$<br/>
+$E(XY) = E(E(XY|X)) = E(XE(Y|X)) = E(X^3) = \frac{1}{4}$<br/>
+$\Rightarrow Cov(X,Y) = \frac{1}{4} - (\frac{1}{2})(\frac{1}{3}) =\frac{1}{12}$<br/>
+$Var(X) = E(X^2) - E(X)^2 = \frac{1}{3} - (\frac{1}{4})^2 = \frac{1}{12}$<br/>
+$\Rightarrow \beta = 1$
+
+# Problem 2
+
+## a)
+
+(1) The quality of their upbringing (2) Their individual level of risk-averseness
+
+## b)
+
+The RA assumption here is that W independent U i.e. the event that the offender's sentence included confinement or not is independent of the unobserved determinants of having a repeat offense. It does not seem plausible here. An example of a $u\in U$ that is not independent of W is wealth. If a person is poor, they are more likely to steal 
+
+## c)
+
+g(1,U) is the event that the offender committed another crime or not if their sentence included confinement. g(0,U) is the event that they committed another crime or not if their sentence did not. 
+
+## d) 
+
+$ATE = E(g(1,U)-g(0,U))$. ATE is the expected effect of sentencing with confinement on the event that an offender committs another crime. 
+
+## e)
+
+Yes. Since the judge would want to prevent repeat offenses, they would use the ATE to determine if they should sentence with or without confinement depending on what the sign of ATE is (positive means they should not since confinement is associated with an increase in repeat offenses, negative means they should)
+
+
+## f)
+
+$ATT = E(g(1,U) - g(0,U)|W=1)$<br/>
+$ATE = E(g(1,U) - g(0,U)) = E(g(1,U) - g(0,U)|W=1)P(W=1) + E(g(1,U) - g(0,U)|W=0)P(W=0) = -0.2$<br/>
+$E(g(1,U) - g(0,U)|W=1) = \displaystyle \frac{-0.2 -0.4E(g(1,U) - g(0,U)|W=0)}{0.6}$<br/>
+<br/>
+Since ATU can be any number, ATT$\in \mathbb{R}$
+
+## g)
+
+ATE = 0.6ATT + 0.4ATU $\ge$ 0.6ATT + 0.4ATT = ATT $\Rightarrow$ ATE$\ge$ATT $\Rightarrow -0.2 \ge$ ATT <br/>
+ATT $\in (-\infty,-0.2)$
+
+## h)
+
+Yes. Since ATT is bounded above by a negative value, this means that the expected effect of sentencing with confinement for those with sentences including confinement on recidivism is negative. This means that the effect of sentencing with confinement on those with sentencing with confinement is associated with a lower likelihood of repeat offense (causal if RA is plausible).
+
+# Problem 3
+
+## a) intelligence
+
+## b) 
+
+g(1,U), g(2,U), g(3,U)...g(w,U) for $w\in\mathbb{N}$<br/>
+The potential outcome is the student's score on the ECON 21020 final if they have w students in their class. We cannot define outcomes for non-integer valued w because w represents the number of students in a class and there cannot be a fraction of a student in a class. 
+
+## c)
+
+$\beta$ is the approximate change in the student's score on the ECON 21020 final associated with an increase in class size of 1 student. 
+
+## d)
+
+$\hat{\beta}_n \pm z_{1-\frac{\alpha}{2}} \cdot se(\hat{\beta}_n)$<br/>
+$-0.7 \pm 1.96 \cdot 0.2$<br/>
+$(-1.092,-0.308)$
+
+## e) 
+
+$T_n = \displaystyle |\frac{\hat{\beta}_n - \beta_0}{se(\hat{\beta}_n)}| = |\frac{-0.7}{0.2}| = 3.5$<br/>
+
+$p = 2(1-\phi(T_n)) = 4.65 \times 10^{-4}$
+
+Since p<0.05, we reject the null hypothesis that $\beta=0$. In words, we can conclude that the approximate change in the student's score on the ECON 21020 final associated iwht a change in the class size of 1 student is not zero. 
+
+## f)
+
+It is not accurate since here we are simply using regresssion and our result only shows association while the headline makes it seem like smaller class sizes cause students to get higher scores. 
+
+## g)
+
+We can use the RA assumption that W is independent of U. It does not seem plausible because students use course evaluations to choose classes based on the quality of instruction. As a result, class sizes $w$ are most likely related to quality of instruction, and the latter is related to the student's score on the final Y and so U is not independent of W. 
+
+
+# Problem 4
+
+Showing (4):<br/>
+$\displaystyle \min_{\alpha,\beta \in \mathbb{R}} E((E(Y|X)-(\alpha + X\beta))^2)$<br/>
+$E(E(Y|X)^2 - 2E(Y|X)(\alpha + X\beta) + (\alpha + X\beta)^2) = $<br/>
+$E(E(Y|X)^2 - 2\alpha E(Y|X)  -2X\beta E(Y|X) + \alpha^2 + 2\alpha X\beta + X^2 \beta^2 ) = $<br/>
+$E(E(Y|X)^2) - 2\alpha E(E(Y|X))  -2\beta E(XE(Y|X)) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $<br/>
+$E(E(Y|X)^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $<br/>
+FOCs:<br/>
+[$\beta$] $-2E(YX) + 2\alpha E(X) + 2\beta E(X^2) = 0$<br/>
+$-E(YX) + \alpha E(X) + \beta E(X^2) = 0$<br/>
+[$\alpha$] $-2E(Y)+2\alpha + 2\beta E(X) =0$<br/>
+$-E(Y)+\alpha + \beta E(X) =0$<br/>
+$\alpha = E(Y) - E(X)\beta$<br/>
+<br/>
+$\Rightarrow -E(YX) + E(Y)E(X)- E(X)^2 \beta + \beta E(X^2) = 0$<br/>
+$\beta (E(X^2)-E(X)^2) = E(YX) - E(Y)E(X) = \beta Var(X) = Cov(X,Y) \Rightarrow \beta = \displaystyle \frac{Cov(X,Y)}{Var(X)}$<br/>
+<br/>
+<br/>
+Showing (5):<br/>
+$\displaystyle \min_{\alpha,\beta \in \mathbb{R}} E((Y-(\alpha + X\beta))^2)$<br/>
+$E(Y^2 - 2Y(\alpha + X\beta) + (\alpha + X\beta)^2) = $<br/>
+$E(Y^2 - 2\alpha Y  -2X\beta Y + \alpha^2 + 2\alpha X\beta + X^2 \beta^2 ) = $<br/>
+$E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $<br/>
+$E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $<br/>
+FOCs:<br/>
+[$\beta$] $-2E(YX) + 2\alpha E(X) + 2\beta E(X^2) = 0$<br/>
+$-E(YX) + \alpha E(X) + \beta E(X^2) = 0$<br/>
+[$\alpha$] $-2E(Y)+2\alpha + 2\beta E(X) =0$<br/>
+$-E(Y)+\alpha + \beta E(X) =0$<br/>
+$\alpha = E(Y) - E(X)\beta$<br/>
+<br/>
+$\Rightarrow -E(YX) + E(Y)E(X)- E(X)^2 \beta + \beta E(X^2) = 0$<br/>
+$\beta (E(X^2)-E(X)^2) = E(YX) - E(Y)E(X) = \beta Var(X) = Cov(X,Y) \Rightarrow \beta = \displaystyle \frac{Cov(X,Y)}{Var(X)}$<br/>
+
+
+# Problem 5
+
+## a) 
+
+$\displaystyle \frac{\partial}{\partial t}w(t) = \frac{1}{Var(X)}(t-E(X))f(t) = 0 \Rightarrow t=E(X)$<br/>
+
+## b)
+
+$E(X|X\ge t) = E(X)$ where X~U(t,1)<br/>
+$E(X|X\ge t) = \frac{1+t}{2}$<br/>
+$E(X|X< t) = \frac{-1+t}{2}$<br/>
+$P(X\ge t) = 1-P(X< t) = 1- \frac{1+t}{2} = \frac{1-t}{2}$<br/>
+$Var(X) = E(X^2)-E(X)^2$, $E(X)=0$, $E(X^2) = \frac{1}{3} \Rightarrow Var(X) = \frac{1}{3}$<br/>
+
+## c)
+
+$w(t) = \displaystyle \frac{(E(X|X\ge t)-E(X|X< t))P(X\ge t)P(X\le t)}{Var(X)} \mathbb{1}\{t\in [-1,1]\}$<br/>
+$ \displaystyle = \frac{(\frac{1+t}{2}-\frac{-1+t}{2})(\frac{1-t}{2})(\frac{1+t}{2})}{\frac{1}{3}} \mathbb{1}\{t\in [-1,1]\}$<br/>
+$ \displaystyle = 3[\frac{1-t}{2} - \frac{(1-t)^2}{4}]\mathbb{1}\{t\in [-1,1]\}$<br/>
+$ \displaystyle = \frac{3}{4}[\frac{1-t}{2} - \frac{(1-t)^2}{4}]\mathbb{1}\{t\in [-1,1]\}$<br/>
+$ \displaystyle = \frac{3}{4}[1-t^2] \mathbb{1}\{t\in [-1,1]\}$<br/>
+
+```{r, warning=FALSE, message=F}
+library("ggplot2")
+eq = function(x){(3/4)*(1-x^2)}
+ggplot(data.frame(x=c(1, 50)), aes(x=x)) + 
+  stat_function(fun=eq) + xlim(-1.5,1.5) + ylim(0,1)
+```
+
+
+## d)
+
+$\beta = \displaystyle \int_{-\infty}^{\infty}\frac{\partial}{\partial t}(E[Y|X=t])w(t)dt$<br/>
+$ = \displaystyle \int_{-\infty}^{\infty}\frac{\partial}{\partial t}(t^3)w(t)dt$<br/>
+$ = \displaystyle 3 \int_{-\infty}^{\infty}t^2 (\frac{3}{4})[1-t^2]\mathbb{1}\{t\in [-1,1]\} dt$<br/>
+$ = \displaystyle \frac{9}{4} \int_{-1}^{1}t^2-t^4 dt$<br/>
+$ = \displaystyle \frac{9}{4} ([\frac{t^3}{3}]^{1}_{-1} - [\frac{t^5}{5}]^{1}_{-1}) = \frac{9}{4} (\frac{2}{3}-\frac{2}{5}) = \frac{3}{5}$<br/>
+
+## e)
+
+$\displaystyle E[\frac{\partial}{\partial X}E[Y|X]] = E[3X^2] = 3E[X^2] = 3(\frac{1}{3} = 1)$<br/>
+Since 
+
+
+# Problem 6
+
+Loading data
+```{r, warning=FALSE}
+# Load the ak91.csv data
+df <- read.csv("data/ak91.csv")
+n <- nrow(df)
+
+# Store years of education and the weekly wage in separate variables
+yrs_educ <- df$YRS_EDUC
+wkly_wage <- df$WKLY_WAGE
+```
+
+
+## a)
+
+$$
+\displaystyle \hat{\beta_{n}} = \frac{\frac{1}{n}\sum^{n}_{i=1}Y_{i}X_{i} - (\frac{1}{n}\sum^{n}_{i=1}Y_{i})(\frac{1}{n}\sum^{n}_{i=1}X_{i})}{\frac{1}{n}\sum^{n}_{i=1}X_{i}^{2} - (\frac{1}{n}\sum^{n}_{i=1}X_{i})^{2}}
+$$
+
+
+$$
+\displaystyle \hat{\alpha_{n}} = \frac{1}{n}\sum^{n}_{i=1}Y_{i} - (\frac{1}{n}\sum^{n}_{i=1}X_{i})\hat{\beta_{n}}
+$$
+
+
+## b)
+
+```{r, warning=FALSE, message=F}
+beta <- (mean(wkly_wage*yrs_educ) - mean(wkly_wage)*mean(yrs_educ))/(mean(yrs_educ^2)-mean(yrs_educ)^2)
+
+alpha <- mean(wkly_wage) - mean(yrs_educ)*beta
+cat(paste0("beta: ",round(beta,2),"\nalpha: ",round(alpha,2)))
+```
+
+
+$\beta$ captures the approximate change in weekly change associated with a unit change in years of education i.e. another year of education. 
+
+
+## c)
+
+```{r, warning=FALSE, message=F}
+alpha + 16*beta
+```
+
+
+The estimate here of $535.15 per week is lower than the solution in the previous pset. This is because in the previous pset, we took the sample of those with college education and calculated the estimator for weekly wage of those with a college education while here we use the entire sample to find the BLP coefficients relating weekly wage and years of education and use those to find an estimate for the weekly wage of those with college education. 
+
+
+## d)
+
+```{r, warning=FALSE, message=F}
+# sd <- sqrt(mean())
+```
+
+
+# Problem 7
+
+
