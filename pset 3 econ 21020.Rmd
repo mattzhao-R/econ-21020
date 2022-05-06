@@ -287,18 +287,18 @@ wkly_wage <- df$WKLY_WAGE
 
 ## a)
 
-$\displaystyle \beta = \frac{Cov(X,Y)}{Var(X)}$
+$\displaystyle \hat{\beta}_n = \frac{\frac{1}{n}\sum Y_i X_i - (\frac{1}{n}\sum Y_i) (\frac{1}{n}\sum X_i)}{\frac{1}{n}\sum X_i^2 - (\frac{1}{n}\sum X_i)^2}$
 
 
-$\displaystyle \alpha = E[Y]-E[X]\beta$
+$\displaystyle \hat{\alpha}_n = \frac{1}{n}\sum Y_i-(\frac{1}{n}\sum X_i)\beta$
 
 
 
 ## b)
 
 ```{r, warning=FALSE, message=F}
-beta <- cov(wkly_wage,yrs_educ)/
-  var(yrs_educ)
+beta <- (mean(wkly_wage*yrs_educ)-mean(wkly_wage)*mean(yrs_educ))/
+  (mean(yrs_educ^2)-mean(yrs_educ)^2)
 
 alpha <- mean(wkly_wage) - mean(yrs_educ)*beta
 cat(paste0("beta: ",round(beta,2),"\nalpha: ",round(alpha,2)))
