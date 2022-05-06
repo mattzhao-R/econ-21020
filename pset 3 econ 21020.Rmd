@@ -73,7 +73,7 @@ ATT $\in (-\infty,-0.2)$
 
 ## h)
 
-Yes. Since ATT is bounded above by a negative value, this means that the expected effect of sentencing with confinement for those with sentences including confinement on recidivism is negative. This means that the effect of sentencing with confinement on those with sentencing with confinement is associated with a lower likelihood of repeat offense (causal if RA is plausible).
+Yes if RA is plausible. Since ATT is bounded above by a negative value, this means that the expected effect of sentencing with confinement for those with sentences including confinement on recidivism is negative. This means that the effect of sentencing with confinement on those with sentencing with confinement is associated with a lower likelihood of repeat offense. If RA is not plausible, we can only say that changing sentences of juvenile offenders who are about to be sentenced to confinement will be associated with an increase in expected recidivism.
 
 # Problem 3
 
@@ -287,21 +287,18 @@ wkly_wage <- df$WKLY_WAGE
 
 ## a)
 
-$$
-\displaystyle \hat{\beta_{n}} = \frac{\frac{1}{n}\sum^{n}_{i=1}Y_{i}X_{i} - (\frac{1}{n}\sum^{n}_{i=1}Y_{i})(\frac{1}{n}\sum^{n}_{i=1}X_{i})}{\frac{1}{n}\sum^{n}_{i=1}X_{i}^{2} - (\frac{1}{n}\sum^{n}_{i=1}X_{i})^{2}}
-$$
+$\displaystyle \beta = \frac{Cov(X,Y)}{Var(X)}$
 
 
-$$
-\displaystyle \hat{\alpha_{n}} = \frac{1}{n}\sum^{n}_{i=1}Y_{i} - (\frac{1}{n}\sum^{n}_{i=1}X_{i})\hat{\beta_{n}}
-$$
+$\displaystyle \alpha = E[Y]-E[X]\beta$
+
 
 
 ## b)
 
 ```{r, warning=FALSE, message=F}
-beta <- (mean(wkly_wage*yrs_educ) - mean(wkly_wage)*mean(yrs_educ))/
-  (mean(yrs_educ^2)-mean(yrs_educ)^2)
+beta <- cov(wkly_wage,yrs_educ)/
+  var(yrs_educ)
 
 alpha <- mean(wkly_wage) - mean(yrs_educ)*beta
 cat(paste0("beta: ",round(beta,2),"\nalpha: ",round(alpha,2)))
