@@ -10,14 +10,7 @@ Link to the **[GitHub Repository](https://github.com/mattzhao-R/econ-21020)**
 
 ## a)
 
-True. 
-$$
-\displaystyle \sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X)) = \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}} \cdot \hat{\sigma}_{x}
-$$
-
-
-Let $A_n = \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}}$ and $B_n = \hat{\sigma}_{x}$. By CLT, $A_n$ converges in distribution to $N(0,1)$, and by WLLN, $\hat{\sigma}_{x}$ converges in probability to $\sigma_x$. Therefore, by Slutsky, $\displaystyle \frac{\sqrt{n}(\frac{1}{n}\sum_{i=1}^{n} X_{i} - E(X))}{\hat{\sigma}_{x}} \cdot \hat{\sigma}_{x}$ converges in distribution to $\sigma_x N(0,1) = \sqrt{Var(X)}N(0,1) = N(0,Var(X))$. 
-
+False. The $\text{X}_{\text{i}}\text{'s}$ are not iid. Therefore, suppose all the $\text{X}_{\text{i}}\text{'s}$ are equal to $\text{X}_{\text{1}}$. If this is the case, the expression $\sqrt{n}(\frac{1}{n}\sum_{i=1}^n X_i -E[X]) = \sqrt{n}(X_1 -E[X])$ which does not converge in distribution to $N(0,Var(X))$
 
 ## b) 
 
@@ -99,15 +92,21 @@ $\beta$ is the approximate change in the student's score on the ECON 21020 final
 
 ## d)
 
-$\hat{\beta}_n \pm z_{1-\frac{\alpha}{2}} \cdot se(\hat{\beta}_n)$<br/>
-$-0.7 \pm 1.96 \cdot 0.2$<br/>
+$\hat{\beta}_n \pm z_{1-\frac{\alpha}{2}} \cdot se(\hat{\beta}_n)$
+
+
+$-0.7 \pm 1.96 \cdot 0.2$
+
+
 $(-1.092,-0.308)$
 
 ## e) 
 
-$T_n = \displaystyle |\frac{\hat{\beta}_n - \beta_0}{se(\hat{\beta}_n)}| = |\frac{-0.7}{0.2}| = 3.5$<br/>
+$T_n = \displaystyle |\frac{\hat{\beta}_n - \beta_0}{se(\hat{\beta}_n)}| = |\frac{-0.7}{0.2}| = 3.5$
+
 
 $p = 2(1-\phi(T_n)) = 4.65 \times 10^{-4}$
+
 
 Since p<0.05, we reject the null hypothesis that $\beta=0$. In words, we can conclude that the approximate change in the student's score on the ECON 21020 final associated iwht a change in the class size of 1 student is not zero. 
 
@@ -123,19 +122,19 @@ We can use the RA assumption that W is independent of U. It does not seem plausi
 # Problem 4
 
 Showing (4):
-$$\displaystyle \min_{\alpha,\beta \in \mathbb{R}} E((E(Y|X)-(\alpha + X\beta))^2)$$
+$$\displaystyle \text{arg}\min_{\alpha,\beta \in \mathbb{R}} E((E(Y|X)-(\alpha + X\beta))^2)$$
 
 
 $$E(E(Y|X)^2-2E(Y|X)(\alpha+X\beta)+(\alpha+X\beta)^2)=$$
 
 
-$$E(E(Y|X)^2-2\alpha E(Y|X)-2X\beta E(Y|X)+\alpha^2+2\alpha X\beta+X^2\beta^2)=$$
+$$=E(E(Y|X)^2-2\alpha E(Y|X)-2X\beta E(Y|X)+\alpha^2+2\alpha X\beta+X^2\beta^2)$$
 
 
-$E(E(Y|X)^2)-2\alpha E(E(Y|X))-2\beta E(XE(Y|X))+\alpha^2+2\alpha\beta E(X)+\beta^2 E(X^2)=$
+$$=E(E(Y|X)^2)-2\alpha E(E(Y|X))-2\beta E(XE(Y|X))+\alpha^2+2\alpha\beta E(X)+\beta^2 E(X^2)$$
 
 
-$E(E(Y|X)^2)-2\alpha E(Y)-2\beta E(XY)+\alpha^2+2\alpha\beta E(X)+\beta^2E(X^2)$
+$$=E(E(Y|X)^2)-2\alpha E(Y)-2\beta E(XY)+\alpha^2+2\alpha\beta E(X)+\beta^2E(X^2)$$
 
 
 FOCs:
@@ -161,11 +160,11 @@ $\beta(E(X^2)-E(X)^2)=E(YX)-E(Y)E(X)=\beta Var(X)=Cov(X,Y)\Rightarrow\beta=\disp
 
 
 Showing (5):
-$\displaystyle \min_{\alpha,\beta \in \mathbb{R}} E((Y-(\alpha + X\beta))^2)$
+$$\displaystyle \text{arg}\min_{\alpha,\beta \in \mathbb{R}} E((Y-(\alpha + X\beta))^2)$$
 $$E(Y^2-2Y(\alpha+X\beta)+(\alpha + X\beta)^2) = $$
-$$E(Y^2-2\alpha Y-2X\beta Y + \alpha^2 + 2\alpha X\beta + X^2 \beta^2 ) = $$
-$$E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $$
-$$E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2) = $$
+$$=E(Y^2-2\alpha Y-2X\beta Y + \alpha^2 + 2\alpha X\beta + X^2 \beta^2 ) $$
+$$=E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2)$$
+$$=E(Y^2) - 2\alpha E(Y)  -2\beta E(XY) + \alpha^2 + 2\alpha\beta E(X) +\beta^2 E(X^2)$$
 FOCs:
 
 
@@ -195,11 +194,22 @@ $\beta (E(X^2)-E(X)^2) = E(YX) - E(Y)E(X) = \beta Var(X) = Cov(X,Y) \Rightarrow 
 
 ## a) 
 
-$\displaystyle \frac{\partial}{\partial t}w(t) = \frac{1}{Var(X)}(t-E(X))f(t) = 0 \Rightarrow t=E(X)$<br/>
+$\displaystyle w(t)=\frac{1}{Var(X)}\int_t^\infty (X-E[X])f(x)dx$
+
+
+$\displaystyle\frac{\partial}{\partial t}w(t) = \frac{1}{Var(X)}[(X-E[X])f(x)]^{\infty}_{t} =0$
+
+
+$\displaystyle\frac{\partial}{\partial t}w(t) = (\lim_{x\to\infty}(X-E[X])f(x)) -(t-E[X])f(t) =0 \Rightarrow (\lim_{x\to\infty}(X-E[X])f(x)) = (t-E[X])f(t)$
+
+
+$\displaystyle \lim_{x\to\infty}(X-E[X])f(x) =0 \text{  since for } x>1, f_{X}(x)=0 \text{ since } X\sim U(-1,1)\Rightarrow (t-E[X])f(t) = 0 \Rightarrow t-E[X]=0 \Rightarrow t=E(X)$
+
+
 
 ## b)
 
-$E(X|X\ge t) = E(X)$ where X~U(t,1)
+$E(X|X\ge t) = E(X)$ where X$\sim$U(t,1)
 
 
 $E(X|X\ge t) = \frac{1+t}{2}$
