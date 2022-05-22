@@ -1,0 +1,139 @@
+---
+title: "pset 4 econ 21020"
+author: "Matthew Zhao"
+date: "5/22/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+### a)
+
+
+### b)
+
+
+
+### c)
+
+
+
+## Problem 2
+
+
+
+
+## Problem 3
+### a)
+
+
+### b)
+
+
+### c)
+
+
+### d)
+
+
+
+## Problem 4
+### a)
+
+$P(W=1|X)$ is the likelihood of selecting into the policy given a set of observables/characteristics. It represents the probability of policy being selected as a function of the observables. 
+
+### b)
+
+An example would be winning big at the casino.
+
+
+### c)
+
+A potential confounder would be family wealth. People who are wealthy are less likely to join the military and more likely to have higher lifetime earnings. 
+
+
+### d)
+
+The assumption states that the choice of serving the military is unrelated to unobserved determinants of lifetime income that the individual does not observe i.e. the choice of serving in the military is only based on factors the agent observes, here whether they are male or not. 
+
+This does not seem plausible here since it is likely that choosing to serve in the military is related to other factors besides your gender such as a family wealth or connections, which would allow you to dodge the draft, a frequent occurence during the Vietnam War draft in particular.
+
+### e)
+
+It does because it means that the event of serving in the military or not is completely random given gender, specifically that there is some random draft for males and none for females. 
+
+
+### f)
+
+$\hat{CATE}(x) = E[g(1,U)-g(0,U)|X]$. The conditional average treatment effect here represents the expected lifetime earnings of an individual given their gender. 
+
+
+### g)
+
+
+
+
+### h)
+
+
+### i)
+
+
+
+### j)
+
+
+
+## Problem 5
+
+
+
+## Problem 6
+### a)
+
+
+### b)
+
+
+### c)
+
+
+### d)
+
+
+
+### e)
+
+
+
+### f)
+
+
+## Problem 7
+### a)
+
+
+
+### b)
+
+
+
+### c)
+
+
+
+### d)
+
+
+
+### e)
+
+
+
+
+
+
+
