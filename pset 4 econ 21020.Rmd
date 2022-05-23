@@ -197,6 +197,7 @@ xx_inv <- solve(t(x) %*% x )
 xy <- t(x) %*% y
 beta <- xx_inv %*% xy
 ```
+
 ```{r}
 beta[length(beta)]
 ```
@@ -230,17 +231,36 @@ x<-cbind(1,dat[,c("boy","age","highschool",
 ```
 
 ```{r}
-length(w)
+
+X <- cbind(x,w)
 ```
 
 ## Problem 7
 ### a)
+```{r}
+# Define a custom function to compute the ols estimates
+my_coef<-function(y,X){
 
-
+}#MY_COEF
+# Test the function using your solution to Problem 6
+coef<-my_coef(y,X)
+coef
+```
 
 ### b)
 
+```{r}
+# Define a custom function to compute the blp estimates
+my_blp <- function(coef,x) {
+  xx_inv <- solve(t(X) %*% X)
+  xy <- t(X) %*% y
+  beta <- xx_inv %*% xy
+  return(beta)
+}#MY_BLP
 
+# Test the function
+mean(y-my_blp(coef,X )) # 0
+```
 
 ### c)
 
