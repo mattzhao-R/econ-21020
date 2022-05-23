@@ -64,16 +64,47 @@ $\sqrt{n}(\hat{\text{ATE}}_n - \text{ATE})\frac{1}{\sqrt{\hat{\sigma}_{\text{ATE
 ## Problem 3
 ### a)
 
+$P(W=1|X)$ is the probability of being treated given a set of observables X.
 
 ### b)
 
+WTS $P(U\le u, W=1|p(X)) = P(U\le u|p(X)) P(W=1|p(X))$
+
+
+$P(U\le u, W=1|p(X)) = E[1\{U\le u,W=1\}|p(X)]$
+
+$= E[1\{U\le u\}1\{W=1\}|p(X)] = E[1\{U\le u\}W|p(X)]$
+
+$= E[E[1\{U\le u\}W|p(X),1\{U\le u\}]|p(X)]$
+
+$= E[1\{U\le u\}E[W|p(X),1\{U\le u\}]|p(X)]$
+
+$= 1\cdot E[W|p(X),1\{U\le u\}]P(U\le u|p(X)) + 0\cdot E[W|p(X),1\{U\le u\}]P(U > u|p(X))$
+
+$= E[W|p(X),1\{U\le u\}]P(U\le u|p(X))$
+
+
+Now we just need to show that $E[W|p(X),1\{U\le u\}] = P(W=1|p(X))$
+
+$E[W|p(X),1\{U\le u\}] = E[E[W|p(X),1\{U\le u\},X]|p(X),U\le u]$
+
+$= E[E[W|1\{U\le u\},X]|p(X),U\le u]$
+
+$= E[E[W|X]|p(X),U\le u]$ by SO
+
+$= E[p(X)|p(X),U\le u] = p(X)$ where $p(X) = P(W=1|p(X))$
 
 ### c)
 
+This can be interpreted as the expected casual effect of treatment given that the probability of treatment is p. 
 
 ### d)
 
+$E[g(1,U)-g(0,U)|p(X)=p] = E[g(1,U)-g(0,U)|W,p(X)=p]$
 
+$=E[g(1,U)|W,p(X)=p] - E[g(0,U)|W,p(X)=p] = E[g(W,U)|W=1,p(X)=p] - E[g(W,U)|W=0,p(X)=p]$
+
+$= E[Y|W=1,p(X)=p] - E[Y|W=0,p(X)=p]$
 
 ## Problem 4
 ### a)
@@ -228,11 +259,41 @@ Selection on observables states that $W$ is independent of $U|X$. Here, it means
 w<-dat[,"cigsdaily"]
 x<-cbind(1,dat[,c("boy","age","highschool",
                   "somecollege","college")])
+X<-cbind(x,w)
 ```
 
 ```{r}
-X <- cbind(x,w)
+all_true <- function(list){
+  for(x in 1:length(list)){
+    if(!list[x]){
+      return(list[x])}
+  }
+  return(TRUE)
+}
+
+dupes <- X[duplicated(X),]
+matches <- dupes[1,]
+count<-0
+for(row in 1:nrow(dupes)){
+  if(all_true(dupes[1,-ncol(dupes)]==dupes[row,-ncol(dupes)]) & (count==1)){
+      matches <- rbind(matches,dupes[row,])
+  }
+  else{
+    if(count!=1){
+      count<-1
+    }
+  }
+}
 ```
+
+```{r}
+sprintf("Number of observations that have the same x as observation 1: %i",nrow(matches))
+sprintf("Unique w for the same x: %i",nrow(unique(matches)))
+sprintf("Total number of unique w: %i",length(unique(w)))
+```
+
+
+We cannot validate CS because for a given x, it does not cover all values of w in the sample. 
 
 ## Problem 7
 ### a)
@@ -267,10 +328,11 @@ mean(y-my_blp(coef,X)) # 0
 ```{r}
 # Define a custom function to compute the standard error
 my_se <- function(coef,y,X) {
-  epsilon <- c(Y - my_blp(coef,X))
+  n <- nrow(X)
+  epsilon <- c(y - my_blp(coef,X))
   XX_inv <- solve(t(X) %*% X)
   XX_eps2<-t(X * epsilon) %*% (X*epsilon)
-  Sigma <- XX_inv %*% XX_eps2 %*% XX_inv/n
+  Sigma <- (XX_inv %*% XX_eps2 %*% XX_inv)*n
   se <- sqrt(diag(Sigma))/sqrt(n)
   return(se)
 }#MY_SE
@@ -285,11 +347,12 @@ se
 ```{r}
 # Define a custom function to compute the test stat and p-value
 my_teststat <- function(beta,se) {
-  
+  t <- abs(beta/se)
+  p <- 2*(1-pnorm(t))
+  return(list(t,p))
 }#MY_TESTSTAT
 # Test the function
 my_teststat(coef,se)
-
 ```
 
 ### e)
@@ -297,7 +360,10 @@ my_teststat(coef,se)
 ```{r}
 # Define a custom function to compute and characterize ols estimates
 my_ols <- function(y,X){
-  
+  coef <- my_coef(y,X)
+  se <- my_se(coef,y,X)
+  tp <- my_teststat(coef,se)
+  return(list(coef,se,tp[1],tp[2]))
 }#MY_OLS
 # Test the function using your solution to Problem 6
 my_ols(y,X)
