@@ -11,19 +11,54 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Problem 1
 ### a)
-
+False. Suppose $W,U$ are iid on Uniform[0,X] where X is a random variable that is equal to 1 with probability 0.5 and 2 with probability 0.5. In this case, W and U are independent by definition but $W$ is not independent of $U|X$ since $U|X$ is a function of X and W is not independent of X. 
 
 ### b)
-
+False. 
 
 
 ### c)
-
+False. $E[\epsilon|X] = E[Y-\text{BLP}(Y|X)|X] = E[Y|X]-E[\text{BLP}(Y|X)|X] = E[Y|X]-\text{BLP}(Y|X)$. $E[\epsilon|X]=0$ only when $E[Y|X]=\text{BLP}(Y|X)$ which is not always true. 
 
 
 ## Problem 2
 
+WTS $\displaystyle \frac{\hat{\text{ATE}}_n - \text{ATE}}{\text{se}(\hat{\text{ATE}}_n)} \overset{d}{\to} N(0,1)$
 
+where $\displaystyle \text{se}(\hat{\text{ATE}}_n) = \frac{1}{\sqrt{n}}\sqrt{\hat{\sigma}_{\text{ATE}}^2}$
+
+
+$\displaystyle\frac{\hat{\text{ATE}}_n - \text{ATE}}{\text{se}(\hat{\text{ATE}}_n)}$ $= \sqrt{n}(\hat{\text{ATE}}_n - \text{ATE})\frac{1}{\sqrt{\hat{\sigma}_{\text{ATE}}^2}}$
+
+
+Let $A_n = \sqrt{n}(\hat{\text{ATE}}_n - \text{ATE})$, $B_n = \hat{\sigma}_{\text{ATE}}^2$
+
+By Lec 7 Theorem 4, $A_n \overset{d}{\to} N(0,\sigma_{\text{ATE}}^2)$
+
+$B_n = \hat{\sigma}_{\text{CATE}}^2 (1) \hat{p}_n(1)^2 + \hat{\sigma}_{\text{CATE}}^2 (0) \hat{p}_n(0)^2 + (\hat{\text{CATE}}_n(1) - \hat{\text{CATE}}_n(0))\hat{p}_n(1)\hat{p}_n(0)$
+
+where $\hat{p}_n(x) = \frac{1}{n} \sum_{i=1}^n \text{1}(X_i)$
+
+
+
+Let $C_n = \hat{\sigma}_{\text{CATE}}^2 (1), D_n = \hat{\sigma}_{\text{CATE}}^2 (0), E_n = \hat{p}_n(1), F_n = \hat{p}_n(0), G_n = \hat{\text{CATE}}_n(1), H_n =\hat{\text{CATE}}_n(0)$
+
+
+$g(c,d,e,f,g,h) = ce^2 + df^2 + (g-h)ef$
+
+$g(C_n,D_n,E_n,F_n,G_n,H_n) = B_n$
+
+By WLLN, $C_n, D_n \overset{p}{\to} \sigma_{\text{CATE}}^2(x)$
+
+$E_n, F_n \overset{p}{\to} p(x)$
+
+$G_n, H_n \overset{p}{\to} \text{CATE}(x)$
+
+By CMT, $B_n \overset{p}{\to} \sigma_{\text{ATE}}^2$
+
+By Slutsky's Theorem, since $A_n \overset{d}{\to} N(0,\sigma_{\text{ATE}}^2)$ and $B_n \overset{p}{\to} \sigma_{\text{ATE}}^2$, 
+
+$\sqrt{n}(\hat{\text{ATE}}_n - \text{ATE})\frac{1}{\sqrt{\hat{\sigma}_{\text{ATE}}^2}} \overset{d}{\to} \frac{1}{\sqrt{\sigma_{\text{ATE}}^2}}N(0,\sigma_{\text{ATE}}^2) \overset{d}{=} N(0,1)$
 
 
 ## Problem 3
@@ -73,44 +108,130 @@ $\hat{CATE}(x) = E[g(1,U)-g(0,U)|X]$. The conditional average treatment effect h
 
 ### g)
 
-
+Yes it is. Since we assume that $W$ is independent of $U|X$, $\hat{CATE}(1) = E[g(1,U)-g(0,U)|1] = E[g(1,U)|W=1,x=1] - E[g(0,U)|W=0,x=1]=E[g(W,U)|W=1,x=1] - E[g(W,U)|W=0,x=1] = E[Y|W=1,x=1] - E[Y|W=0,x=1]$
 
 
 ### h)
 
+Since we assume that $W$ is independent of $U|X$, $\hat{CATE}(0) = E[g(1,U)-g(0,U)|0] = E[g(1,U)|W=1,x=0] - E[g(0,U)|W=0,x=0]=E[g(W,U)|W=1,x=0] - E[g(W,U)|W=0,x=0] = E[Y|W=1,x=0] - E[Y|W=0,x=0]$. However, because we do not observe lifetime earnings for females who served in the military since we do not have $W=w,x=0$, this is not point identified. 
 
 ### i)
 
-
+$ATE = E[g(1,U)-g(0,U)]$. The average treatment effect is the expected difference in lifetime earnings for an individual if they had served in the military and if they had not. 
 
 ### j)
 
-
+The ATE is point identified. Since we assume that $W$ is independent of $U|X$, $ATE = E[g(1,U)-g(0,U)] = E[E[g(1,U)-g(0,U)|X]] = E[CATE(x)]$. Since the conditional average treatment effect is point identified, ATE is point identified. 
 
 ## Problem 5
 
+$$\displaystyle \text{arg}\min_{\beta \in \mathbb{R}^{k+1}} E[(E[Y|X]-X^T\beta)^2]$$
+$$E[(E[Y|X]^2 - 2E[Y|X]X^T\beta - (X^T\beta)^2)]$$
+$$=E[E[Y|X]^2] - 2E[E[YX^T|X]]\beta - \beta^TE[X^TX]\beta]$$
+
+$$=E[E[Y|X]^2] - 2E[YX^T]\beta - \beta^TE[XX^T]\beta$$
+
+
+FOC:
+$[\beta]$
+
+$-2E[YX^T] - \beta^T(E[X^TX]^T+E[XX^T])=0_{k+1}^T$
+
+$\Rightarrow -2E[YX^T] +\beta^TE[XX^T]=0_{k+1}^T$
+
+$\Rightarrow -2E[XY] +E[XX^T]\beta=0$
+
+$\Rightarrow E[XY]=E[XX^T]\beta$
+
+$\Rightarrow \beta=E[XX^T]^{-1}E[XY]$
+
+
+
+$$\displaystyle \text{arg}\min_{\beta \in \mathbb{R}^{k+1}} E[(Y-X^T\beta)^2]$$
+$$E[(Y^2 - 2YX^T\beta - (X^T\beta)^2)]$$
+$$=E[Y^2] - 2E[YX^T]\beta - \beta^TE[XX^T]\beta$$
+FOC:
+$[\beta]$
+
+$-2E[YX^T] - \beta^T(E[X^TX]^T+E[XX^T])=0_{k+1}^T$
+
+$\Rightarrow -2E[YX^T] +\beta^TE[XX^T]=0_{k+1}^T$
+
+$\Rightarrow -2E[XY] +E[XX^T]\beta=0$
+
+$\Rightarrow E[XY]=E[XX^T]\beta$
+
+$\Rightarrow \beta=E[XX^T]^{-1}E[XY]$
 
 
 ## Problem 6
-### a)
 
+```{r}
+dat<-read.csv("data/bw06.csv")
+dat<-as.matrix(dat)
+```
+
+
+```{r}
+y<-dat[,"birthweight"]
+w<-dat[,"cigsdaily"]
+x<-cbind(1,dat[,c("boy","age","highschool",
+                  "somecollege","college")])
+x_tld<-dat[,"married"]
+```
+
+### a)
+```{r}
+ww_inv <- solve(t(w) %*% w)
+wy <- t(w) %*% y
+beta <- ww_inv %*% wy # 172
+```
+
+
+Beta here represents the change in birthweight associated with an additional cigarette smoked per day by the mother. 
 
 ### b)
+```{r}
+x <- cbind(x,w)
+xx_inv <- solve(t(x) %*% x )
+xy <- t(x) %*% y
+beta <- xx_inv %*% xy
+```
+```{r}
+beta[length(beta)]
+```
+
+
+Beta here represents the change in birthweight associated with an additional cigarette smoked per day by the mother when controlling for gender, age, and level of education. 
 
 
 ### c)
 
+It does differ because we are controlling for other variables in addition to cigarettes smoked per day. 
+
 
 ### d)
 
-
+Our result only shows that an increase in the number of cigarettes smoked per day is associated with lower birthweight, not that it  causes lower birthweight. 
 
 ### e)
 
+Common support states that $suppX = supp X|W$ i.e. that for every set of observables (boy, age, highschool, somecollege, college) there are individuals at each level of $W=w'$, here number of cigarettes smoked per day. 
 
+
+Selection on observables states that $W$ is independent of $U|X$. Here, it means that the weight of the baby at birth is independent of the unobservables i.e. only related to the observables (boy, age, highschool, somecollege, college). 
 
 ### f)
 
+```{r}
+w<-dat[,"cigsdaily"]
+x<-cbind(1,dat[,c("boy","age","highschool",
+                  "somecollege","college")])
+```
+
+```{r}
+length(w)
+```
 
 ## Problem 7
 ### a)
