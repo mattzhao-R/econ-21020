@@ -231,7 +231,6 @@ x<-cbind(1,dat[,c("boy","age","highschool",
 ```
 
 ```{r}
-
 X <- cbind(x,w)
 ```
 
@@ -240,7 +239,10 @@ X <- cbind(x,w)
 ```{r}
 # Define a custom function to compute the ols estimates
 my_coef<-function(y,X){
-
+  xx_inv <- solve(t(X) %*% X )
+  xy <- t(X) %*% y
+  beta <- xx_inv %*% xy
+  return(beta)
 }#MY_COEF
 # Test the function using your solution to Problem 6
 coef<-my_coef(y,X)
@@ -252,27 +254,54 @@ coef
 ```{r}
 # Define a custom function to compute the blp estimates
 my_blp <- function(coef,x) {
-  xx_inv <- solve(t(X) %*% X)
-  xy <- t(X) %*% y
-  beta <- xx_inv %*% xy
-  return(beta)
+  blp_yx <- x %*% coef
+  return(blp_yx)
 }#MY_BLP
 
 # Test the function
-mean(y-my_blp(coef,X )) # 0
+mean(y-my_blp(coef,X)) # 0
 ```
 
 ### c)
 
+```{r}
+# Define a custom function to compute the standard error
+my_se <- function(coef,y,X) {
+  epsilon <- c(Y - my_blp(coef,X))
+  XX_inv <- solve(t(X) %*% X)
+  XX_eps2<-t(X * epsilon) %*% (X*epsilon)
+  Sigma <- XX_inv %*% XX_eps2 %*% XX_inv/n
+  se <- sqrt(diag(Sigma))/sqrt(n)
+  return(se)
+}#MY_SE
+# Test the function using your solution to Problem 6
+se <- my_se(coef,y,X)
+se
+```
 
 
 ### d)
 
+```{r}
+# Define a custom function to compute the test stat and p-value
+my_teststat <- function(beta,se) {
+  
+}#MY_TESTSTAT
+# Test the function
+my_teststat(coef,se)
 
+```
 
 ### e)
 
-
+```{r}
+# Define a custom function to compute and characterize ols estimates
+my_ols <- function(y,X){
+  
+}#MY_OLS
+# Test the function using your solution to Problem 6
+my_ols(y,X)
+```
 
 
 
