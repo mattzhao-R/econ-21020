@@ -14,7 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 False. Suppose $W,U$ are iid on Uniform[0,X] where X is a random variable that is equal to 1 with probability 0.5 and 2 with probability 0.5. In this case, W and U are independent by definition but $W$ is not independent of $U|X$ since $U|X$ is a function of X and W is not independent of X. 
 
 ### b)
-False. 
+False. Let X be Bernoulli(0.5) and $X_n$ = 1-X. By definition $X_n \overset{d}{=} X$. 
+
+$\displaystyle \lim_{n\to \infty} \text{Pr}(|X_n -X| > \epsilon) = 0$
+
+$\Rightarrow |1-X-X| = |1-2X| = 1$. As a result, $\displaystyle \lim_{n\to \infty} \text{Pr}(1 > \epsilon) \ne 0$ $\forall \epsilon >0$. 
 
 
 ### c)
@@ -109,16 +113,15 @@ $= E[Y|W=1,p(X)=p] - E[Y|W=0,p(X)=p]$
 ## Problem 4
 ### a)
 
-$P(W=1|X)$ is the likelihood of selecting into the policy given a set of observables/characteristics. It represents the probability of policy being selected as a function of the observables. 
+An example would be winning big at the casino.
 
 ### b)
 
-An example would be winning big at the casino.
-
+A potential confounder would be family wealth. People who are wealthy are less likely to join the military and more likely to have higher lifetime earnings. 
 
 ### c)
 
-A potential confounder would be family wealth. People who are wealthy are less likely to join the military and more likely to have higher lifetime earnings. 
+The potential outcomes g(1,U) and g(0,U) are the lifetime earnings if the individual served in the military and the lifetime earnings if the individual did not serve in the military.
 
 
 ### d)
@@ -131,11 +134,9 @@ This does not seem plausible here since it is likely that choosing to serve in t
 
 It does because it means that the event of serving in the military or not is completely random given gender, specifically that there is some random draft for males and none for females. 
 
-
 ### f)
 
-$\hat{CATE}(x) = E[g(1,U)-g(0,U)|X]$. The conditional average treatment effect here represents the expected lifetime earnings of an individual given their gender. 
-
+$\hat{CATE}(x) = E[g(1,U)-g(0,U)|X]$ $\hat{CATE}(1),\hat{CATE}(0)$ represent the expected causal effect of serving in the military on lifetime earnings controlling for gender for a random individual. 
 
 ### g)
 
@@ -148,11 +149,11 @@ Since we assume that $W$ is independent of $U|X$, $\hat{CATE}(0) = E[g(1,U)-g(0,
 
 ### i)
 
-$ATE = E[g(1,U)-g(0,U)]$. The average treatment effect is the expected difference in lifetime earnings for an individual if they had served in the military and if they had not. 
+$ATE = E[g(1,U)-g(0,U)]$. The average treatment effect is the expected casual effect on lifetime earnings of serving in the military for a random individual. 
 
 ### j)
 
-The ATE is point identified. Since we assume that $W$ is independent of $U|X$, $ATE = E[g(1,U)-g(0,U)] = E[E[g(1,U)-g(0,U)|X]] = E[CATE(x)]$. Since the conditional average treatment effect is point identified, ATE is point identified. 
+The ATE is not point identified. Since we assume that $W$ is independent of $U|X$, $ATE = E[g(1,U)-g(0,U)] = E[E[g(1,U)-g(0,U)|X]] = E[CATE(x)] = E[Y|W=1] - E[Y|W=0]$. It is not point identified because common support doesn't hold. Specifically $W=1,x=0$ is not observed.
 
 ## Problem 5
 
